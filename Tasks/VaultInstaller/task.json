@@ -1,0 +1,49 @@
+{
+    "id": "f5016087-a6db-40c4-9f5e-c8aeead16b89",
+    "name": "vaultInstaller",
+    "friendlyName": "Vault tool installer",
+    "description": "Find in cache or download a specific version of Vault and prepend it to the PATH",
+    "author": "HashiCorp",
+    "helpMarkDown": "",
+    "category": "Tool",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "demands": [],
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Install Vault $(vaultVersion)",
+    "inputs": [
+        {
+            "name": "vaultVersion",
+            "type": "string",
+            "label": "Version",
+            "defaultValue": "1.2.3",
+            "required": true,
+            "helpMarkDown": "The version of Vault which should be installed on the agent if not already present"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": ".bin/Index.js"
+        }
+    },
+    "outputVariables": [
+        {
+            "name": "vaultLocation",
+            "description": "The location of the Vault binary that was installed on the agent."
+        }
+    ],
+    "messages": {
+        "VerifyVaultInstallation": "Verifying Vault installation...",
+        "InputVersionNotValidSemanticVersion": "Input version %s is not a valid semantic version",
+        "VaultNotFoundInFolder": "Vault executable not found in path %s",
+        "OperatingSystemNotSupported": "Operating system %s is not supported",
+        "ArchitectureNotSupported": "Architecture %s is not supported",
+        "VaultDownloadFailed": "Failed to download Vault from url %s. Error %s"
+    }
+}

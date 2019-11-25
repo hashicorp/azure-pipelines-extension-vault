@@ -1,0 +1,15 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - tests/*
+
+stages:
+- stage: Test
+  jobs:
+  - template: test-vault-installer.yml
+  - template: test-userpass.yml
+  - template: test-kv-get.yml

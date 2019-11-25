@@ -1,0 +1,15 @@
+jobs:
+# Validates a valid template
+- job: TestUserpassKVGet
+  displayName: Test Userpass Keyvalue Get 
+  dependsOn:
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: vault@0
+    inputs:
+      command: 'kvGet'
+      key: 'secret/data/test'
+      vaultServiceConnectionName: 'Vault Userpass Connection'
+    displayName: Get key value from Vault with a Userpass connection

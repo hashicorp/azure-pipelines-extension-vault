@@ -1,0 +1,22 @@
+jobs:
+# Validates a valid template
+- job: TestKVGet
+  displayName: Test Keyvalue Get
+  dependsOn:
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: vault@0
+    inputs:
+      command: 'kvGet'
+      key: 'secret/data/test'
+      vaultServiceConnectionName: 'Vault Token Connection'
+    displayName: Get key value from Vault
+
+  - script: |
+      set -e -x
+      env
+      echo $(SECRET_DATA_TEST_HELLO)
+    displayName: Check vault vaule
+

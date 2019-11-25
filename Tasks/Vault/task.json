@@ -1,0 +1,79 @@
+{
+    "id": "23bc3f85-3d14-49a2-aec3-07e40fa06676",
+    "name": "vault",
+    "friendlyName": "Vault",
+    "description": "A task for running HashiCorp Vault",
+    "helpMarkDown": "",
+    "category": "Tool",
+    "author": "HashiCorp",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "vault",
+    "groups": [
+
+    ],
+    "inputs": [
+        {
+            "name": "vaultServiceConnectionName",
+            "type": "connectedService:VaultServiceEndpoint",
+            "label": "Vault Service Connection",
+            "required": true,
+            "helpMarkDown": "Select a Vault connection to use.<br><br>Note: If your connection is not listed or if you want to use an existing connection, you can setup a Vault service connection using the 'Add' or 'Manage' button."
+        },
+        {
+            "name": "command",
+            "type": "picklist",
+            "label": "Command",
+            "defaultValue": "init",
+            "required": true,
+            "helpMarkDown": "Select a method for authenticating vault.",
+            "options": {
+                "kvGet": "kv get",
+                "kvPut": "kv put",
+                "read": "read",
+                "write": "write"
+            }
+        },
+        {
+            "name": "path",
+            "type": "string",
+            "label": "Path",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The key path to access",
+            "visibleRule": "command = kvGet || command = kvPut"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "label": "Data",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The data to set/write",
+            "visibleRule": "command = kvPut || command = write"
+        },
+        {
+            "name": "prefix",
+            "type": "string",
+            "label": "Prefix",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "A prefix to apply instead of the path for variable set by a read",
+            "visibleRule": "command = kvRead || command = read"
+        }
+    ],
+    "dataSourceBindings": [
+    ],
+    "execution": {
+        "Node": {
+            "target": ".bin/Index.js"
+        }
+    }
+}
